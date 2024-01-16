@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale|replace({'_': '-'}) }}">
+	<head>
+		{% block head %}
+
+			{% if charset is defined %}
+				<meta charset="{{ charset }}" />
+			{% endif %}
+
+			{% if viewport is defined %}
+				<meta name="viewport" content="{{ viewport }}" />
+			{% endif %}
+
+			{% if baseUrl is defined %}
+				<base href="{{ baseUrl }}" />
+			{% endif %}
+
+			{% block favicon %}{% endblock %}
+
+			{% if htmlHeadTitle is defined %}
+				<title>{{ htmlHeadTitle }}</title>
+			{% endif %}
+
+			{% if metaDescription is defined and metaDescription != '' %}
+				<meta name="description" content="{{ metaDescription }}" />
+			{% endif %}
+
+			{% if canonical is defined %}
+				<link rel="canonical" href="{{ canonical }}" />
+			{% endif %}
+
+			{% block importmap %}
+			{% endblock %}
+
+			{% block preloads %}
+			{% endblock %}
+
+			{% block stylesheets %}
+			{% endblock %}
+
+			{% block javascripts %}
+			{% endblock %}
+		{% endblock %}
+	</head>
+
+	<body>
+		{% block body %}{% endblock %}
+	</body>
+</html>

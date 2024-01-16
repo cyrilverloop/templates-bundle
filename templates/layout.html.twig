@@ -1,0 +1,89 @@
+{% extends "@CVTemplatesBundle/base.html.twig" %}
+
+
+{% if translationContext is not defined %}
+    {% set translationContext = 'messages' %}
+{% endif %}
+
+{% if charset is not defined %}
+	{% set charset = 'UTF-8' %}
+{% endif %}
+
+{% if viewport is not defined %}
+	{% set viewport = 'width=device-width, initial-scale=1, shrink-to-fit=no' %}
+{% endif %}
+
+{% if baseUrl is not defined %}
+	{% set baseUrl = app.request.schemeAndHttpHost ~ app.request.baseUrl ~ '/' %}
+{% endif %}
+
+{% block favicon %}
+    {% if faviconHref is not defined %}
+        {% set faviconHref = 'app/images/favicon.png' %}
+    {% endif %}
+
+    {% if faviconSizes is not defined %}
+        {% set faviconSizes = '32x32' %}
+    {% endif %}
+
+    <link rel="icon" type="image/png" href="{{ asset(faviconHref) }}" sizes="{{ faviconSizes }}" />
+{% endblock %}
+
+
+{# SEO #}
+
+{#
+ # headTitleSeparationChars : a string used to separate
+ # the title of your page from the name of your website.
+ # Eg : Page name - Website name.
+ # If headTitleSiteName below is not defined, headTitleSeparationChars is not used.
+ #}
+{% if headTitleSeparationChars is not defined %}
+	{% set headTitleSeparationChars = ' - ' %}
+{% endif %}
+
+{#
+ # pageHeadTitle : The title of the page.
+ #}
+{% if pageHeadTitle is not defined %}
+    {% set pageHeadTitle = 'pageHeadTitle'|trans({}, translationContext) %}
+{% endif %}
+
+{# headTitleSiteName : the name of your website #}
+{# htmlHeadTitle : the content of the <title> in the <head> #}
+{% if headTitleSiteName is defined %}
+    {% set htmlHeadTitle = pageHeadTitle ~ headTitleSeparationChars ~ headTitleSiteName|trans %}
+{% else %}
+    {% set htmlHeadTitle = pageHeadTitle %}
+{% endif %}
+
+{% if metaDescription is not defined %}
+    {% set metaDescription = 'metaDescription'|trans({}, translationContext) %}
+{% elseif metaDescription != '' %}
+    {% set metaDescription = metaDescription|trans({}, translationContext) %}
+{% endif %}
+
+{% if canonical is defined %}
+	{% set canonical = app.request.schemeAndHttpHost ~ canonical %}
+{% endif %}
+
+
+{# Body #}
+
+{% block body %}
+	<header>
+        {% block header %}
+            {{ include('header.html.twig', sandboxed = true, ignore_missing = true) }}
+        {% endblock %}
+    </header>
+
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+
+	<footer>
+        {% block footer %}
+            {{ include('footer.html.twig', sandboxed = true, ignore_missing = true) }}
+        {% endblock %}
+    </footer>
+{% endblock %}

@@ -1,0 +1,21 @@
+{
+    "name": "cyril-verloop/templates-bundle",
+    "description": "Some basic templates for Symfony 7+.",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cyril VERLOOP",
+            "email": "cyril.verloop@webqard.fr"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "CyrilVerloop\\Bundle\\TemplatesBundle\\": "src/"
+        }
+    },
+    "require": {
+        "symfony/asset": "^7.0",
+        "twig/twig": "^3"
+    }
+}
